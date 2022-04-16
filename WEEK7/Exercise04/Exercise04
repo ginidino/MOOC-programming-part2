@@ -1,1 +1,32 @@
+Exercise04 is about Thing, Suitcase, and Container and is divided into 8 part
+  * In these exercises, we create the classes Thing, Suitcase, and Container, and we train to use objects which contain other objects.
 
+Exercise 4.1 is about Class Thing
+  * Create the class Thing whose objects can represent different kinds of things. The information to store are the thing's name and weight (kg).
+
+  * Add the following methods to your class:
+    - A construsctor, which is given the thing's name and weight as parameter
+    - public String getName(), which returns the thing's name
+    - public int getWeight(), which returns the thing's weight
+    - public String toString(), which returns a string in the form "name (weight kg)"
+
+  * Below, you find an example of how to use the class:
+
+    public class Main {
+        public static void main(String[] args) {
+            Thing book = new Thing("Happiness in Three Steps", 2);
+            Thing mobile = new Thing("Nokia 3210", 1);
+
+            System.out.println("Book name: " + book.getName());
+            System.out.println("Book weight: " + book.getWeight());
+
+            System.out.println("Book: " + book);
+            System.out.println("Mobile: " + mobile);
+        }
+    }
+        
+  * The program output should look like the following:
+    Book name: Happiness in Three Steps
+    Book weight: 2
+    Book: Happiness in Three Steps (2 kg)
+    Mobile: Nokia 3210 (1 kg)

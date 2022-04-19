@@ -30,3 +30,87 @@ Exercise 4.1 is about Class Thing
     Book weight: 2
     Book: Happiness in Three Steps (2 kg)
     Mobile: Nokia 3210 (1 kg)
+    
+Exercise 4.2 is about Class Suitcase
+ * Create the class Suitcase. Suitcase has things and a maximum weight limit, which defines the greatest total allowed weight of the things contained within the Suitcase object.
+
+ * Add the following methods to your class:
+   - A constructor, which is given a maximum weight limit
+   - public void addThing(Thing thing), which adds the thing in the parameter to your suitcase. The method does not return any value.
+   - public String toString(), which returns a string in the form "x things (y kg)"
+
+  * The things are saved into an ArrayList object:
+
+   ArrayList<Thing> things = new ArrayList<Thing>();
+            
+  * The class Suitcase has to make sure the thing's weight does not cause the total weight to exceed the maximum weight limit. 
+    The method addThing should not add a new thing if the total weight happens to exceed the maximum weight limit.
+
+  * Below, you find an example of how the class can be used:
+
+    public class Main {
+        public static void main(String[] args) {
+            Thing book = new Thing("Happiness in three steps", 2);
+            Thing mobile = new Thing("Nokia 3210", 1);
+            Thing brick = new Thing("Brick", 4);
+
+            Suitcase suitcase = new Suitcase(5);
+            System.out.println(suitcase);
+
+            suitcase.addThing(book);
+            System.out.println(suitcase);
+
+            suitcase.addThing(mobile);
+            System.out.println(suitcase);
+
+            suitcase.addThing(brick);
+            System.out.println(suitcase);
+        }
+    }
+            
+  * The program output should look like the following:
+    0 things (0 kg)
+    1 things (2 kg)
+    2 things (3 kg)
+    2 things (3 kg)
+            
+Exercise 4.3 is about Language Check
+  * "0 things" or "1 things" is not really proper English – it would be better to say "empty" or "1 thing". 
+     Implement this change in the class Suitcase.
+
+  * Now, the output of the previous program should look like the following:
+    empty (0 kg)
+    1 thing (2 kg)
+    2 things (3 kg)
+    2 things (3 kg)
+            
+Exercise 4.4 is about Every Thing
+  * Add the following methods to Suitcase:
+    - printThings, which prints out all the things inside the suitcase
+    - totalWeight, which returns the total weight of the things in your suitcase
+
+  * Below, there is an example of how the class can be used:
+
+    public class Main {
+        public static void main(String[] args) {
+            Thing book = new Thing("Happiness in Three Steps", 2);
+            Thing mobile = new Thing("Nokia 3210", 1);
+            Thing brick = new Thing("Brick", 4);
+
+            Suitcase suitcase = new Suitcase(10);
+            suitcase.addThing(book);
+            suitcase.addThing(mobile);
+            suitcase.addThing(brick);
+
+            System.out.println("Your suitcase contains the following things:");
+            suitcase.printThings();
+            System.out.println("Total weight: " + suitcase.totalWeight() + " kg");
+        }
+    }
+            
+  * The program output should now look like the following:
+    Your suitcase contains the following things:
+    Happiness in Three Steps (2 kg)
+    Nokia 3210 (1 kg)
+    Brick (4 kg)
+    Total weight: 7 kg

@@ -114,3 +114,74 @@ Exercise 4.4 is about Every Thing
     Nokia 3210 (1 kg)
     Brick (4 kg)
     Total weight: 7 kg
+
+Exercise 4.6 is about Container
+  * Create the class Container, which has the following methods:
+  - a constructor which is given the maximum weight limit
+  - public void addSuitcase(Suitcase suitcase), which adds the suitcase as a parameter to the container
+  - public String toString() which returns a string in the form "x suitcases (y kg)"
+
+  * Store the suitcase with a suitable ArrayList construction.
+
+  * The class Container has to make sure the thing's total weight does not overcome the maximum weight limitation. 
+    The method addSuitcase should not add a new suitcase if the total weight happens to exceed the maximum weight limit.
+
+  * Below, there is an example of how the class can be used:
+
+public class Main {
+    public static void main(String[] args) {
+        Thing book = new Thing("Happiness in Three Steps", 2);
+        Thing mobile = new Thing("Nokia 3210", 1);
+        Thing brick = new Thing("Brick", 4);
+
+        Suitcase tomsCase = new Suitcase(10);
+        tomsCase.addThing(book);
+        tomsCase.addThing(mobile);
+
+        Suitcase georgesCase = new Suitcase(10);
+        georgesCase.addThing(brick);
+
+        Container container = new Container(1000);
+        container.addSuitcase(tomsCase);
+        container.addSuitcase(georgesCase);
+
+        System.out.println(container);
+    }
+}
+            
+The program output should look like the following:
+
+2 suitcases (7 kg)
+            
+Exercise 4.7: The Container Contents
+Add the method public void printThings() to your Container; the method prints out all the things inside the container's suitcases.
+
+Below is an example of how the class can be used:
+
+public class Main {
+    public static void main(String[] args) {
+        Thing book = new Thing("Happiness in Three Steps", 2);
+        Thing mobile = new Thing("Nokia 3210", 1);
+        Thing brick = new Thing("Brick", 4);
+
+        Suitcase tomsCase = new Suitcase(10);
+        tomsCase.addThing(book);
+        tomsCase.addThing(mobile);
+
+        Suitcase georgesCase = new Suitcase(10);
+        georgesCase.addThing(brick);
+
+        Container container = new Container(1000);
+        container.addSuitcase(tomsCase);
+        container.addSuitcase(georgesCase);
+
+        System.out.println("There are the following things in the container suitcases:");
+        container.printThings();
+    }
+}
+            
+  * The program output should look like the following:
+    There are the following things in the container suitcases:
+    Happiness in Three Steps (2 kg)
+    Nokia 3210 (1 kg)
+    Brick (4 kg)

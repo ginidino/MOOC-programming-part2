@@ -128,57 +128,56 @@ Exercise 4.6 is about Container
 
   * Below, there is an example of how the class can be used:
 
-public class Main {
-    public static void main(String[] args) {
-        Thing book = new Thing("Happiness in Three Steps", 2);
-        Thing mobile = new Thing("Nokia 3210", 1);
-        Thing brick = new Thing("Brick", 4);
+    public class Main {
+        public static void main(String[] args) {
+            Thing book = new Thing("Happiness in Three Steps", 2);
+            Thing mobile = new Thing("Nokia 3210", 1);
+            Thing brick = new Thing("Brick", 4);
 
-        Suitcase tomsCase = new Suitcase(10);
-        tomsCase.addThing(book);
-        tomsCase.addThing(mobile);
+            Suitcase tomsCase = new Suitcase(10);
+            tomsCase.addThing(book);
+            tomsCase.addThing(mobile);
 
-        Suitcase georgesCase = new Suitcase(10);
-        georgesCase.addThing(brick);
+            Suitcase georgesCase = new Suitcase(10);
+            georgesCase.addThing(brick);
 
-        Container container = new Container(1000);
-        container.addSuitcase(tomsCase);
-        container.addSuitcase(georgesCase);
+            Container container = new Container(1000);
+            container.addSuitcase(tomsCase);
+            container.addSuitcase(georgesCase);
 
-        System.out.println(container);
+            System.out.println(container);
+        }
     }
-}
             
-The program output should look like the following:
-
-2 suitcases (7 kg)
+  * The program output should look like the following:
+    2 suitcases (7 kg)
             
-Exercise 4.7: The Container Contents
-Add the method public void printThings() to your Container; the method prints out all the things inside the container's suitcases.
+Exercise 4.7 is about The Container Contents
+  * Add the method public void printThings() to your Container; the method prints out all the things inside the container's suitcases.
 
-Below is an example of how the class can be used:
+  * Below is an example of how the class can be used:
 
-public class Main {
-    public static void main(String[] args) {
-        Thing book = new Thing("Happiness in Three Steps", 2);
-        Thing mobile = new Thing("Nokia 3210", 1);
-        Thing brick = new Thing("Brick", 4);
+    public class Main {
+        public static void main(String[] args) {
+            Thing book = new Thing("Happiness in Three Steps", 2);
+            Thing mobile = new Thing("Nokia 3210", 1);
+            Thing brick = new Thing("Brick", 4);
 
-        Suitcase tomsCase = new Suitcase(10);
-        tomsCase.addThing(book);
-        tomsCase.addThing(mobile);
+            Suitcase tomsCase = new Suitcase(10);
+            tomsCase.addThing(book);
+            tomsCase.addThing(mobile);
 
-        Suitcase georgesCase = new Suitcase(10);
-        georgesCase.addThing(brick);
+            Suitcase georgesCase = new Suitcase(10);
+            georgesCase.addThing(brick);
 
-        Container container = new Container(1000);
-        container.addSuitcase(tomsCase);
-        container.addSuitcase(georgesCase);
+            Container container = new Container(1000);
+            container.addSuitcase(tomsCase);
+            container.addSuitcase(georgesCase);
 
-        System.out.println("There are the following things in the container suitcases:");
-        container.printThings();
+            System.out.println("There are the following things in the container suitcases:");
+            container.printThings();
+        }
     }
-}
             
   * The program output should look like the following:
     There are the following things in the container suitcases:

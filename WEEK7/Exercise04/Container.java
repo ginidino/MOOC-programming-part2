@@ -20,16 +20,16 @@ public class Container {
 		for (Suitcase sc : suitcases) {
 			weight += sc.totalWeight();
 		}
-        if (this.maxWeight - weight >= suitcase.totalWeight()) {
-            this.suitcases.add(suitcase);
-        }
+        	if (this.maxWeight - weight >= suitcase.totalWeight()) {
+            		this.suitcases.add(suitcase);
+        	}
 	}
 	
 	public int totalWeight() {
 		int weight = 0;
-        for (Suitcase suitcase : suitcases) {
-            weight += suitcase.totalWeight();
-        }
+        	for (Suitcase suitcase : suitcases) {
+            		weight += suitcase.totalWeight();
+        	}
 		return weight;
 	}
 	// Exercise 4.7: The Container Contents

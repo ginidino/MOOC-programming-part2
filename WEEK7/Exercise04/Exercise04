@@ -184,3 +184,26 @@ Exercise 4.7 is about The Container Contents
     Happiness in Three Steps (2 kg)
     Nokia 3210 (1 kg)
     Brick (4 kg)
+    
+Exercise 4.8 is about A Lot of Bricks
+  * Let's check that our container works fine and we can still not exceed the maximum weight limit. 
+    In the Main class, create the method public static void addSuitcasesFullOfBricks(Container container), 
+    which adds 100 suitcases into the container it receives as parameter; there is one brick in each suitcase. 
+    The bricks weight will then increase by one each time until the weight becomes 100 kg.
+
+  * The program body is the following:
+
+    public class Main {
+        public static void main(String[] Container) {
+            Container container = new Container(1000);
+            addSuitcasesFullOfBricks(container);
+            System.out.println(container);
+        }
+
+        public static void addSuitcasesFullOfBricks(Container container) {
+            // adding 100 suitcases with one brick in each
+        }
+    }
+            
+  * The program output should look like the following:
+    44 suitcases (990 kg)

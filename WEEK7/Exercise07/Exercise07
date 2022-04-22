@@ -1,1 +1,132 @@
+Exercise 7 is about Dictionary and is divided into 5 part
+  * In this exercise, implement a dictionary which can be used to retrieve the English translation of Korean words. 
+    implement our dictionary using the HashMap data structure.
 
+Exercise 7.1 is about Class Dictionary
+  * Create a class called Dictionary. The class has the following methods:
+    - public String translate(String word), returning the translation of its parameter. If the word is unknown, it returns null.
+    - public void add(String word, String translation), adding a new translation to the dictionary
+
+  * Implement the class Dictionary so that it contained only one object variable, a HashMap data structure.
+
+  * Test your Dictionary:
+
+    Dictionary dictionary = new Dictionary();
+    dictionary.add("원숭이", "monkey");
+    dictionary.add("바나나", "banana");
+    dictionary.add("하프시코드", "harpsichord");
+
+    System.out.println(dictionary.translate("apina"));
+    System.out.println(dictionary.translate("porkkana"));
+                
+  * output
+    monkey
+    null
+                
+Exercise 7.2 is about Amount of Words
+  * Add the method public int amountOfWords(), which returns the amount of words in the dictionary.
+
+    Dictionary dictionary = new Dictionary();
+    dictionary.add("apina", "monkey");
+    dictionary.add("banaani", "banana");
+    System.out.println(dictionary.amountOfWords());
+
+    dictionary.add("cembalo", "harpsichord");
+    System.out.println(dictionary.amountOfWords());
+                
+  * output
+    2
+    3
+                
+Exercise 7.3 is about Listing All Words
+  * Add the method public ArrayList<String> translationList() to your dictionary, 
+    returning strings which stand for a content list of your dictionary in the form key = value.
+
+    Dictionary dictionary = new Dictionary();
+    dictionary.add("apina", "monkey");
+    dictionary.add("banaani", "banana");
+    dictionary.add("cembalo", "harpsichord");
+
+    ArrayList<String> translations = dictionary.translationList();
+    for(String translation: translations) {
+        System.out.println(translation);
+    }
+                
+  * output
+    바나나 = banana
+    원숭이 = monkey
+    하프시코드 = harpsichord
+                
+  * Hint: you can go through all HashMap keys using the method keySet in the following way:
+
+    HashMap<String, String> wordPairs = new HashMap<String, String>();
+
+    wordPairs.put("monkey", "animal");
+    wordPairs.put("South", "compass point");
+    wordPairs.put("sauerkraut", "food");
+
+    for ( String key : wordPairs.keySet() ) {
+        System.out.print( key + " " );
+    }
+
+    // prints: monkey South sauerkraut
+                
+Exercise 7.4 is about The Beginning of a Text User Interface
+  * In this exercise, we also train creating a text user interface. Create the class TextUserInterface, with the following methods:
+    - the constructor public TextUserInterface(Scanner reader, Dictionary dictionary)
+    - public void start(), which starts the interface.
+
+  * The text user interface stores into two object variables the reader and dictionary it has received as constructor parameters. 
+    You don't need other object variables. The user input must be read using the reader object received as constructor parameter! 
+    The translations also have to be stored into the dicitonary object received as constructor parameter. 
+    The text user interface must not create new objects itself!
+
+  * Attention: 
+    This means The text user interface must not create a scanner itself but it must use the scanner received as parameter to read the user input!
+
+  * At the beginning, in the text user interface must only have the command quit, to quit the text user interface. 
+    If the user inputs something else, we print "Unknown statement".
+
+    Scanner reader = new Scanner(System.in);
+    Dictionary dict = new Dictionary();
+
+    TextUserInterface ui = new TextUserInterface(reader, dict);
+    ui.start();
+
+  * output
+    Statement:
+      quit - quit the text user interface
+
+    Statement: help
+    Unknown statement
+
+    Statement: quit
+    Cheers!
+                
+Exercise 7.5 is about Adding and Translating Words
+  * Add the methods add and translate to your text user interface. 
+    The command add asks for a word pair from the user and adds them to the dictionary. 
+    The command translate asks a word from the user and it prints the translation.
+
+    Scanner reader = new Scanner(System.in);
+    Dictionary dict = new Dictionary();
+
+    TextUserInterface ui = new TextUserInterface(reader, dict);
+    ui.start();
+
+  * output
+    Statements:
+      add - adds a word pair to the dictionary
+      translate - asks a word and prints its translation
+      quit - quits the text user interface
+
+    Statement: add
+    In Korean: 당근
+    Translation: carrot
+
+    Statement: translate
+    Give a word: 당근
+    Translation: carrot
+
+    Statement: quit
+    Cheers!

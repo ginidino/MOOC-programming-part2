@@ -10,11 +10,6 @@ public class Book {
 		this.publishingYear = publishingYear;
 		this.genre = genre;
 	}
-	
-	public Book(String name, int publishingYear) {
-		this.name = name;
-		this.publishingYear = publishingYear;
-	}
 
 	public String getName() {
 		return this.name;
@@ -28,13 +23,9 @@ public class Book {
 		return this.genre;
 	}
 	
-	/*public String toString() {
-        return "Name: " + this.name + " (" + this.publishingYear + ")\n" + "Genre: " + this.genre;
-    }*/
-	
 	public String toString() {
-        return this.name + " (" + this.publishingYear + ")";
-    }
+        return "Name: " + this.name + " (" + this.publishingYear + ")\n" + "Genre: " + this.genre;
+    	}
 
 	public void setName(String name) {
 		this.name = name;

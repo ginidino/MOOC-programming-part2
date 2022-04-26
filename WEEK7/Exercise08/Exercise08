@@ -1,0 +1,114 @@
+Exercise 8 is about Airport
+  * The first exercise which you can design freely in Advanced Programming is Airport.
+
+  * Attention: you can create only one Scanner object so that your tests would work well. 
+    Also, do not use static variables, the tests execute your program many different times, 
+    and the static variable values left from the previous execution would possibly disturb them!
+
+  * In the airport exercises we create an application to manage an airport, with its airplanes and flights. 
+    As far as the planes are concerned, we always know their ID and capacity. 
+    As for the flights, we know the plane used for the flight, 
+    the departure airport code (for instance HEL) and the destination airport code (for instance BAL).
+
+  * There can be various different flights and planes. 
+    The same plane can also go on various different flights (various different routes). 
+    The application must offer two different panels. 
+    First, the airport worker inputs the flight and plane information to the system in the airport panel.
+
+  * When the user exits the airport panel, the user then proceeds to use the flight service. 
+    The flight service has three actions: printing planes, printing flights, and printing airplane information. 
+    In addition to this, the user can exit the application by choosing x. If the user inputs an invalid command, the command is asked again.
+
+    Airport panel
+    --------------------
+
+    Choose operation:
+    [1] Add airplane
+    [2] Add flight
+    [x] Exit
+    > 1
+    Give plane ID: HA-LOL
+    Give plane capacity: 42
+    Choose operation:
+    [1] Add airplane
+    [2] Add flight
+    [x] Exit
+    > 1
+    Give plane ID: G-OWAC
+    Give plane capacity: 101
+    Choose operation:
+    [1] Add airplane
+    [2] Add flight
+    [x] Exit
+    > 2
+    Give plane ID: HA-LOL
+    Give departure airport code: HEL
+    Give destination airport code: BAL
+    Choose operation:
+    [1] Add airplane
+    [2] Add flight
+    [x] Exit
+    > 2
+    Give plane ID: G-OWAC
+    Give departure airport code: JFK
+    Give destination airport code: BAL
+    Choose operation:
+    [1] Add airplane
+    [2] Add flight
+    [x] Exit
+    > 2
+    Give plane ID: HA-LOL
+    Give departure airport code: BAL
+    Give destination airport code: HEL
+    Choose operation:
+    [1] Add airplane
+    [2] Add flight
+    [x] Exit
+    > x
+
+    Flight service
+    ------------
+
+    Choose operation:
+    [1] Print planes
+    [2] Print flights
+    [3] Print plane info
+    [x] Quit
+    > 1
+    G-OWAC (101 ppl)
+    HA-LOL (42 ppl)
+    Choose action:
+    [1] Print planes
+    [2] Print flights
+    [3] Print plane info
+    [x] Quit
+    > 2
+    HA-LOL (42 ppl) (HEL-BAL)
+    HA-LOL (42 ppl) (BAL-HEL)
+    G-OWAC (101 ppl) (JFK-BAL)
+
+    Choose operation:
+    [1] Print planes
+    [2] Print flights
+    [3] Print plane info
+    [x] Quit
+    > 3
+    Give plane ID: G-OWAC
+    G-OWAC (101 ppl)
+
+    Choose operation:
+    [1] Print planes
+    [2] Print flights
+    [3] Print plane info
+    [x] Quit
+    > x
+                
+  * Attention: for the tests, it is essential that the user interface works exactly as displayed above. 
+    In fact, it is a good idea to copy-paste the menus printed by the above program into your code exactly. 
+    The tests do not require that your program should be prepared to deal with invalid inputs. This exercise is worth three single excercise points.
+
+  * The program must start by executing the main method in the exercise layout.
+
+  * Still another remark: in order to make your tests work, your program has to create only one Scanner object. 
+    Also, avoid using static variables: the tests execute your program many different times, 
+    and the static variable values left from the previous execution would possibly disturb them!   

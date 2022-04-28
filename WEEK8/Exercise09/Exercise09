@@ -1,1 +1,82 @@
+Exercise 9 is about Car Registration Centre and is divided into 3 part
 
+Exercise 9.1 is about Registration Plate Equals and HashCode
+  * European registration plates are composed of two parts: 
+    the country ID -- one or two letters long -- and possibly a regitration code specific for the country, 
+    which in turn is composed of numbers and letters. Registaration plates are defined using the following class:
+
+    public class RegistrationPlate {
+        // ATTENTION: the object variable types are final, meaning that their value cannot be changed!
+        private final String regCode;
+        private final String country;
+
+        public RegistrationPlate(String regCode, String country) {
+          this.regCode = regCode;
+          this.country = country;
+        }
+
+        public String toString(){
+            return country+ " "+regCode;
+        }
+    }
+                
+  * We want to store the registration plates into say ArrayLists, using a HashMap as key. 
+    As mentioned before, it means we have to implement the methods equals and hashCode in their class, otherwise they can't work as we want.
+
+  * Suggestion: take the equals and hashCode models from the Book example above. 
+    The registration plate hashCode can be created say combining the hashCodes of the country ID and of the registration code.
+
+  * Example program:
+
+        public static void main(String[] args) {
+            RegistrationPlate reg1 = new RegistrationPlate("FI", "ABC-123");
+            RegistrationPlate reg2 = new RegistrationPlate("FI", "UXE-465");
+            RegistrationPlate reg3 = new RegistrationPlate("D", "B WQ-431");
+
+            ArrayList<RegistrationPlate> finnish = new ArrayList<RegistrationPlate>();
+            finnish.add(reg1);
+            finnish.add(reg2);
+
+            RegistrationPlate new = new RegistrationPlate("FI", "ABC-123");
+            if (!finnish.contains(new)) {
+                finnish.add(new);
+            }
+            System.out.println("Finnish: " + finnish);
+            // if the equals method hasn't been overwritten, the same registration plate is repeated in the list
+
+            HashMap<RegistrationPlate, String> owners = new HashMap<RegistrationPlate, String>();
+            owners.put(reg1, "Arto");
+            owners.put(reg3, "Jürgen");
+
+            System.out.println("owners:");
+            System.out.println(owners.get(new RegistrationPlate("FI", "ABC-123")));
+            System.out.println(owners.get(new RegistrationPlate("D", "B WQ-431")));
+            // if the hashCode hasn't been overwritten, the owners are not found
+        }
+                
+  * If equals hashCode have been implemented well, the output should look like this:
+    Finnish: [FI ABC-123, FI UXE-465]
+    owners:
+    Arto
+    Jürgen
+
+                
+Exercise 9.2: The Owner, Based of the Registration Plate
+  * Implement the class VehicleRegister which has the following methods:
+    - public boolean add(RegistrationPlate plate, String owner), 
+      - which adds the parameter owner of the car which corresponds to the parameter registration plate. 
+        The method returns true if the car had no owner; if the car had an owner already, the method returns false and it doesn't do anything
+        
+    - public String get(RegistrationPlate plate), 
+      - which returns the car owner which corresponds to the parameter register number. If the car was not registered, it returns null
+      
+    - public boolean delete(RegistrationPlate plate), 
+      - which delete the information connected to the parameter registration plate. 
+        The method returns true if the information was deleted, and false if there was no information connetted to the parameter in the register.
+  
+  * Attention: the vehicle register has to store the owner information into a HashMap<RegistrationPlate, String> owners object variable!
+
+Exercise 9.3 is about More for the Vehicle Register
+  * Add still the following methods to your VehicleRegister:
+    - public void printRegistrationPlates(), which prints out all the registration plates stored
+    - public void printOwners(), which prints all the car owners stored. Each owner's name has to be printed only once, even though they had more than one car

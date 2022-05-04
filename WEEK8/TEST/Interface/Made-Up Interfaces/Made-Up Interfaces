@@ -1,1 +1,22 @@
 some of Java's most used interfaces: List, Map, Set and Collection.
+
+
+--------------------------------------------------------------------------
+output
+[A String object within an ArrayList object!]
+
+[A string object within a LinkedList object!]
+
+hai: kyllä
+gambatte: tsemppiä
+
+one
+two
+
+Keys:
+hai
+gambatte
+
+Values:
+yes
+good luck

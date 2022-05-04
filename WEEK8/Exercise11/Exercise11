@@ -1,1 +1,101 @@
+Exercise 11 is about Boxes and Things and is divided into 4 part
 
+Exercise 11.1 is about ToBeStored
+  * We need storage boxes when we move to a new apartment. The boxes are used to store different things. 
+    All the things which are stored in the boxes have to implement the following interface:
+
+    public interface ToBeStored {
+        double weight();
+    }
+            
+  * Add the interface to your program. New interfaces are added almost in the same way as classes: 
+    you choose new Java interface instead of new Java class.
+
+  * Create two classes which implement the interface Book and CD. 
+    Book receives its writer (String), name (String), and weight (double), all as parameter. CD's parameter contains its artist (String), title (String), 
+    and publishing year (int). All CDs weigh 0.1 kg.
+
+  * Remember that the classes also have to implement the interface ToBeStored. The classes have to work in the following way:
+
+    public static void main(String[] args) {
+        Book book1 = new Book("Fedor Dostojevski", "Crime and Punishment", 2);
+        Book book2 = new Book("Robert Martin", "Clean Code", 1);
+        Book book3 = new Book("Kent Beck", "Test Driven Development", 0.5);
+
+        CD cd1 = new CD("Pink Floyd", "Dark Side of the Moon", 1973);
+        CD cd2 = new CD("Wigwam", "Nuclear Nightclub", 1975);
+        CD cd3 = new CD("Rendezvous Park", "Closer to Being Here", 2012);
+
+        System.out.println(book1);
+        System.out.println(book2);
+        System.out.println(book3);
+        System.out.println(cd1);
+        System.out.println(cd2);
+        System.out.println(cd3);
+    }
+            
+  * Print output:
+    Fedor Dostojevski: Crime and Punishment
+    Robert Martin: Clean Code
+    Kent Beck: Test Driven Development
+    Pink Floyd: Dark Side of the Moon (1973)
+    Wigwam: Nuclear Nightclub (1975)
+    Rendezvous Park: Closer to Being Here (2012)
+            
+  * Attention! The weight is not reported here.
+
+Exercise 11.2 is about Box
+  * Create the class box, which has to store Things that implement the interface ToBeStored. 
+    The box receives as constructor the maximum weight, expressed in kilograms.
+    The box can't be added more things than its maximum capacity allows for. 
+    The weight of the things contained in the box can never exceed the box maximum capacity.
+
+  * The following example clarifies the box use:
+
+    public static void main(String[] args) {
+        Box box = new Box(10);
+
+        box.add( new Book("Fedor Dostojevski", "Crime and Punishment", 2) ) ;
+        box.add( new Book("Robert Martin", "Clean Code", 1) );
+        box.add( new Book("Kent Beck", "Test Driven Development", 0.7) );
+
+        box.add( new CD("Pink Floyd", "Dark Side of the Moon", 1973) );
+        box.add( new CD("Wigwam", "Nuclear Nightclub", 1975) );
+        box.add( new CD("Rendezvous Park", "Closer to Being Here", 2012) );
+
+        System.out.println( box );
+    }
+            
+  * Printing:
+    Box: 6 things, total weight 4.0 kg
+            
+  * Note: because the weights are represented as double, the rounding can cause small mistakes. 
+    You don't need to care about it when you do the exercise.
+
+Exercise 11.3 is about Box weight
+  * If you created the object variable double weght in your box which records the weight of your things, 
+    replace it now with a method which calculates the weight:
+
+    public class Box {
+        //...
+
+        public double weight() {
+            double weight = 0;
+            // it calculates the total weight of the things which had been stored
+            return weight;
+        }
+    }
+            
+  * When you need the box weight -- if you have to add a new thing, for instance -- you can simply call the method which calculates it.
+
+  * In fact, the method could work well even though it retured the value of an object variable.
+    However, we train a situation where you don't need to maintain the object variable explicitly, but you can calculate it when you need it. 
+
+Exercise 11.4 is about Boxes are Stored too!
+  * Implementing the interface ToBeStored requires that the class has the method double weight(). 
+    In fact, we just added this method to Box. Boxes can be stored!
+
+  * Boxes are objects where we can store object which implement the interface ToBeStored. 
+    Boxes also implement this interface. This means that you can also put boxes inside your boxes!
+
+  * Try this out: create a couple of boxes in your program, put things into the boxes and put smaller boxes into the bigger ones.

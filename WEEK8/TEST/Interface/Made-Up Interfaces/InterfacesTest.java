@@ -57,7 +57,6 @@ public class InterfacesTest {
 		}
 		System.out.println();
 		
-		System.out.println();
 		System.out.println("Values:");
 		Collection<String> values = translation.values();
 		for(String value: values) {

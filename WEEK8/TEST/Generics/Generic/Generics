@@ -1,1 +1,4 @@
-
+Generics is based on the generic type parameter which is used when we define a class, 
+and which helps us to define the types that have to be chosen when an object is created.
+A class generics can be defined by setting up the number of type parameters we want. 
+This number is written after the class name and between the greater-than and less-than signs.

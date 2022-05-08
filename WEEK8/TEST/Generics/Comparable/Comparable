@@ -1,1 +1,13 @@
+In addition to normal interfaces, Java has interfaces which make use of generics. 
+The internal value types of generic interfaces are defined in the same way as for generic classes.
+The Comparable interface defines the compareTo method, which returns the place of this object, 
+in relation to the parameter object (a negative number, 0, or a positive number). 
+If this object is placed before the parameter object in the comparison order, the method returns a negative value, 
+whereas it returns a positive value if it is placed after the parameter object. 
+If the objects are placed at the same place in the comparison order, the method returns 0. 
+With comparison order we mean the object order of magnitude defined by the programmer, 
+i.e. the object order, when they are sorted with the sort method.
 
+One of the advantages of the Comparable interface is that it allows us to sort a list of Comparable type keys by using the standard library method 
+Collections.sort, for instance. Collections.sort uses the compareTo method of a key list to define in which order these keys should be. 
+We call Natural Ordering this ordering technique which makes use of the compareTo method.

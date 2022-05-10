@@ -1,1 +1,3 @@
-
+Exercise 13: Rich First, Poor Last
+  * You find the pre-made class Person. People have got name and salary information. 
+    Make Person implement the Comparable interface, so that the compareTo method would sort the people according to their salary -- rich first, poor last.

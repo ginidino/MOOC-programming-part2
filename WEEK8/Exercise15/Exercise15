@@ -1,1 +1,204 @@
+Exercise 15 is about Sorting Cards and is divided into 6 part
+  * Cards have got a value and a suit. 
+    Card values are 2, 3, ..., 10, J, Q, K and A, and the suits are Spades, Hearts, Diamonds and Clubs. 
+    Value and suit are however shown as integers in the objects. 
+    Cards have also got a toString method, which is used to print the card value and suit in a "friendly way".
 
+  * Four constants -- that is public static final variables -- are defined in the class, 
+    so that the user didn't need to handle card's suits as numbers:
+
+    public class Card {
+        public static final int SPADES  = 0;
+        public static final int DIAMONDS  = 1;
+        public static final int HEARTS = 2;
+        public static final int CLUBS   = 3;
+
+        // ...
+    }
+            
+  * Now, instead of writing the number 1, we can use the constant Card.DIAMONDS in our program. 
+    In the following example, we create three cards and print them:
+
+    Card first = new Card(2, Card.DIAMONDS);
+    Card second = new Card(14, Card.CLUBS);
+    Card third = new Card(12, Card.HEARTS);
+
+    System.out.println(first);
+    System.out.println(second);
+    System.out.println(third);
+            
+  * Prints:
+    2 of Diamonds
+    A of Clubs
+    Q of Hearts
+            
+  * Note: using constants as shown above is not the best way deal with things. Later on in the course we learn a better way to show suits!
+
+Exercise 15.1 is about Comparable Cards
+  * Make your Cards class Comparable. Implement the compareTo method so that cards would be sorted in ascending order according to their value. 
+    If the value of two classes have got the same values, we compare them against their suit in ascending order: 
+    spades first, diamonds second, hearts third, and clubs last.
+
+  * The smallest card would then be the two spades and the greatest would be the clubs ace.
+
+Exercise 15.2 is about Hand
+  * Next, let's create the class Hand which represents the player hand set of cards. Create the following method to the hand:
+    - public void add(Card card) adds a card to the hand
+    - public void print() prints the cards in the hand following the below example pattern
+    
+    Hand hand = new Hand();
+
+    hand.add( new Card(2, Card.SPADES) );
+    hand.add( new Card(14, Card.CLUBS) );
+    hand.add( new Card(12, Card.HEARTS) );
+    hand.add( new Card(2, Card.CLUBS) );
+
+    hand.print();
+            
+  * Prints:
+    2 of Spades
+    A of Clubs
+    Q of Hearts
+    2 of Clubs
+            
+  * Store the hand cards into an ArrayList.
+
+Exercise 15.3 is about Sorting the Hand
+  * Create the method public void sort() for your hand, which sorts the cards in the hand. After being sorted, the cards are printed in order:
+
+    Hand hand = new Hand();
+
+    hand.add( new Card(2, Card.SPADES) );
+    hand.add( new Card(14, Card.CLUBS) );
+    hand.add( new Card(12, Card.HEARTS) );
+    hand.add( new Card(2, Card.CLUBS) );
+
+    hand.sort();
+
+    hand.print();
+            
+  * Prints:
+    2 of Spades
+    2 of Clubs
+    Q of Hearts
+    A of Clubs
+            
+Exercise 15.4 is about Comparing Hands
+  * In one card game, the most valuable hand, where the sum of the cards value is the biggest. 
+    Modify the class Hand so that it could be compared according to this criterion: make it implement the interface Comparable<Hand>.
+
+  * Below, you find an example of a program where we compare hands:
+
+    Hand hand1 = new Hand();
+
+    hand1.add( new Card(2, Card.SPADES) );
+    hand1.add( new Card(14, Card.CLUBS) );
+    hand1.add( new Card(12, Card.HEARTS) );
+    hand1.add( new Card(2, Card.CLUBS) );
+
+    Hand hand2 = new Hand();
+
+    hand2.add( new Card(11, Card.DIAMONDS) );
+    hand2.add( new Card(11, Card.CLUBS) );
+    hand2.add( new Card(11, Card.HEARTS) );
+
+    int comparison = hand1.compareTo(hand2);
+
+    if ( comparison < 0 ) {
+      System.out.println("the most valuable hand contains the cards");
+      hand2.print();
+    } else if ( comparison > 0 ){
+      System.out.println("the most valuable hand contains the cards");
+      hand1.print();
+    } else {
+      System.out.println("the hands are equally valuable");
+    }
+            
+  * Prints:
+    the most valuable hand contains the cards
+    J of Diamonds
+    J of Clubs
+    J of Hearts
+            
+Exercise 15.5 is about Sorting the Cards against Different Criteria
+  * What about if we wanted to sort cards in a slightly different way, sometimes; 
+    for instance, what about if we wanted to have all same-suit cards in a raw? 
+    The class can have only one compareTo method, which means that we have to find out other ways to sort cards against different orders.
+
+  * If you want to sort your cards in optional orders, you can make use of different classes which execute the comparison. 
+    These classes have to implement the interface Comparator<Card>.
+    The object which determines the sorting order compares two cards it receives as parameter. 
+    There is only one method, a compare(Card card1, Card card2) method which has to return a negative value if card1 is before card2, 
+    a positive value if card2 is before card1, and 0 otherwise.
+
+  * The idea is creating a specific comparison class for each sorting order; for instance, a class which places same suit cards together in a row:
+
+    import java.util.Comparator;
+
+    public class SortAgainstSuit implements Comparator<Card> {
+        public int compare(Card card1, Card card2) {
+            return card1.getSuit()-card2.getSuit();
+        }
+    }
+            
+  * Sorting against suit works in the same way as the card method compareTo thought for suits, 
+    that is spades first, diamonds second, hearts third, clubs last.
+
+  * Sorting is still possible through the Collections' sort method. 
+    The method now receives as second parameter an object of the class that determines the sorting order:
+
+    ArrayList<Card> cards = new ArrayList<Card>();
+
+    cards.add( new Card(3, Card.CLUBS) );
+    cards.add( new Card(2, Card.DIAMONDS) );
+    cards.add( new Card(14, Card.CLUBS) );
+    cards.add( new Card(12, Card.HEARTS) );
+    cards.add( new Card(2, Card.CLUBS) );
+
+    SortAgainstSuit suitSorter = new SortAgainstSuit();
+    Collections.sort(cards, suitSorter );
+
+    for (Card c : cards) {
+      System.out.println( c );
+    }
+          
+  * Prints:
+    2 of Diamonds
+    Q of Hearts
+    3 of Clubs
+    A of Clubs
+    2 of Clubs
+          
+  * The sorting object can also be created directly together with the sort call:
+    Collections.sort(cards, new SortAgainstSuit());
+          
+  * Further information about comparator classes in here.
+
+  * Create now the class SortAgainstSuitAndValue which implements the Comparator interface and sorts cards as it is done in the example above, 
+    plus same suit cards are also sorted according to their value.
+
+Exercise 15.6 is about Sort Against Suit
+  * Add the method public void sortAgainstSuit() to the class Hand; 
+    when the method is called the hand's cards are sorted according to the comparator SortAgainstSuitAndValue. 
+    After sorting them, the cards are printed in order:
+
+    Hand hand = new Hand();
+
+    hand.add( new Card(12, Card.HEARTS) );
+    hand.add( new Card(4, Card.CLUBS) );
+    hand.add( new Card(2, Card.DIAMONDS) );
+    hand.add( new Card(14, Card.CLUBS) );
+    hand.add( new Card(7, Card.HEARTS) );
+    hand.add( new Card(2, Card.CLUBS) );
+
+    hand.sortAgainstSuit();
+
+    hand.print();
+          
+  * Prints:
+    2 of Diamonds
+    7 of Hearts
+    Q of Hearts
+    2 of Clubs
+    4 of Clubs
+    A of Clubs

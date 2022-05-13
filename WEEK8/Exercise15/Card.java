@@ -1,0 +1,46 @@
+package Week08;
+
+// Exercise 15: Sorting Cards
+// Exercise 15.1: Comparable Cards
+public class Card implements Comparable<Card>{
+	public static final int SPADES  = 0;
+    public static final int DIAMONDS  = 1;
+    public static final int HEARTS = 2;
+    public static final int CLUBS   = 3;
+    /*
+     * To make printing easier, Card-class also has string arrays for suits and values.
+     * SUITS[suit] is a string representation of the suit (Clubs, Diamonds, Hearts, Spades)
+     * VALUES[value] is an abbreviation of the card's value (A, J, Q, K, [2..10]).
+     */
+    public static final String[] SUITS = {"Spades", "Diamonds", "Hearts", "Clubs"};
+    public static final String[] VALUES = {"-", "-", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+    
+    private int value;
+    private int suit;
+    
+    public Card(int value, int suit) {
+		this.value = value;
+		this.suit = suit;
+	}
+    
+    public int getValue() {
+    	return this.value;
+    }
+    
+    public int getSuit() {
+    	return this.suit;
+    }
+    
+    public String toString() {
+        return VALUES[value] + " of " + SUITS[suit];
+    }
+
+    @Override
+    public int compareTo(Card card) {
+    	if (this.value==card.getValue()) {
+            return this.suit - card.getSuit();
+        } else {
+            return this.value - card.getValue();
+        }
+    }
+}

@@ -14,9 +14,9 @@
 ## Exercise 3.1 is about Reader
 > In order to communicate with the user, the calculator needs a Scanner-object. As we've seen, reading integers with a Scanner is a little laborious. We now create a separate class Reader that encapsulates a Scanner-object.
 
-> * Implement the class Reader and add the following methods to it
-    - public String readString()
-    - public int readInteger()
+- Implement the class Reader and add the following methods to it   
+    - public String readString()   
+    - public int readInteger()   
 
 > Within the Reader there should be a Scanner-object as an instance variable, which the methods use in the old familiar way we know from programming basics. Remember that when reading integers, it's good to first read the entire line and then turn that in to an integer. Here we can utilize the method parseInt of the Integer-class.
 
@@ -89,7 +89,7 @@
 ```
 > Implement the method private void statistics(), and make the required changes to the code of the Calculator-class in order to collect the statistics.   
 
-> * Note
+- Note
     - if an invalid command is given to the program (something other than sum, difference, product or end), the calculator will not react to the command in any way, but instead continues by asking the next command. Statistics is not to count an invalid command as a completed calculation.
 ```
     command: integral
@@ -101,5 +101,5 @@
     command: end
     Calculations done 1
 ```
-> * Bonus assignment (not tested): 
+- Bonus assignment (not tested): 
     - Reading the user input is repeated in the same way in all three operation implementing methods. Remove the repetition from your code with the help of a support method. The method can return the two values asked from the user in an array, for example.

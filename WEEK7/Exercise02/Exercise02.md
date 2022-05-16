@@ -3,7 +3,7 @@
 > In this assignment we create a character string changer, which consists of two classes. The class Changer turns a single character to another one. The Changer holds a number of Changes and changes character strings with the help of Change objects it holds.
 
 ## Exercise 2.1 is about Change-class
-> Create a class Change, that has the following functionalities:   
+* Create a class Change, that has the following functionalities:   
     - constructor public Change(char fromCharacter, char toCharacter)   
       - creates an object that makes changes from character fromCharacter to toCharacter   
     - method public String change(String characterString)    
@@ -22,7 +22,7 @@
 
       System.out.println(word);
 ```  
-> The example above would print:
+* The example above would print:
 ```
       cbrrot
       cbxxot
@@ -49,7 +49,7 @@
 ## Exercise 2.2 is about Changer-class
 > Create the class Changer, with the following functions:
 
-> constructor public Changer() creates a new changer   
+* constructor public Changer() creates a new changer   
     - method public void addChange(Change change)    
       - adds a new Change to the Changer   
     - method public String change(String characterString)    
@@ -62,7 +62,7 @@
       scandiesAway.addChange(new Change('ö', 'o'));
       System.out.println(scandiesAway.change("ääliö älä lyö, ööliä läikkyy"));
 ```        
-> The above example would print:
+* The above example would print:
 ```
       aalio ala lyo, oolia laikkyy
 ```   

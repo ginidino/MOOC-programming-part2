@@ -1,4 +1,4 @@
-#Exercise 1: Smileys
+# Exercise 1: Smileys
 > Create the support method private static void printWithSmileys(String characterString) for the class Smileys which comes with the assignment template. The method is to print the given character string surrounded with smileys. Use the character string :) as the smiley.
 
 ```java

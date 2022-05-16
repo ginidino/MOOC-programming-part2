@@ -3,14 +3,13 @@
 > In this assignment we create a character string changer, which consists of two classes. The class Changer turns a single character to another one. The Changer holds a number of Changes and changes character strings with the help of Change objects it holds.
 
 ## Exercise 2.1 is about Change-class
-> Create a class Change, that has the following functionalities:
-    - constructor public Change(char fromCharacter, char toCharacter)
-      - creates an object that makes changes from character fromCharacter to toCharacter
-    - method public String change(String characterString) 
-      - returns the changed version of the given character string
+> Create a class Change, that has the following functionalities:   
+    - constructor public Change(char fromCharacter, char toCharacter)   
+      - creates an object that makes changes from character fromCharacter to toCharacter   
+    - method public String change(String characterString)    
+      - returns the changed version of the given character string   
 
 > The class is used in the following way:
-
 ```java
       String word = "carrot";
       Change change1 = new Change('a', 'b');
@@ -28,7 +27,7 @@
       cbrrot
       cbxxot
 ```        
-> Tip: you can handle replacing characters in two ways, either with the help of a method in the class String (look for it yourself!) or by going through the character string character by character while forming the changed character string.   
+> Tip: you can handle replacing characters in two ways, either with the help of a method in the class String (look for it yourself!) or by going through the character string character by character while forming the changed character string.      
 > If you don't use the ready-made method of String, it is good to remember that even though you compare character strings with the command equals you compare single characters with the == operator:
 
 ```java
@@ -50,11 +49,11 @@
 ## Exercise 2.2 is about Changer-class
 > Create the class Changer, with the following functions:
 
-> constructor public Changer() creates a new changer
-    - method public void addChange(Change change) 
-      - adds a new Change to the Changer
-    - method public String change(String characterString) 
-      - executes all added Changes for the character string in the order of their adding and returns the changed character string
+> constructor public Changer() creates a new changer   
+    - method public void addChange(Change change)    
+      - adds a new Change to the Changer   
+    - method public String change(String characterString)    
+      - executes all added Changes for the character string in the order of their adding and returns the changed character string   
 
 > The class is used in the following way:
 ```java

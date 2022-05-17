@@ -87,8 +87,8 @@ Position    Name
 > The program has to start when we execute the main method in the example layout. Also, remember again that you can create only one Scanner object in your exercise.      
 
 1. ask for jumper names, empty string = move to jumping phase
-2. jumping phase = jumpers jump one by one in reverse order according to their points
-    2.5. least points always jumps first, most points jumps last
+2. jumping phase = jumpers jump one by one in reverse order according to their points   
+    - 2.5. least points always jumps first, most points jumps last
 3. random generator (60-120) for jump lengths.
 4. Judge decisions = 5 judges vote (random 10-20), three middle jumps are added to points
 5. Tournament results

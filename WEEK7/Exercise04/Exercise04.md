@@ -88,8 +88,8 @@
 ```             
 ## Exercise 4.4 is about Every Thing
 > Add the following methods to Suitcase:   
-    - printThings, which prints out all the things inside the suitcase   
-    - totalWeight, which returns the total weight of the things in your suitcase   
+  - printThings, which prints out all the things inside the suitcase   
+  - totalWeight, which returns the total weight of the things in your suitcase   
 
 > Below, there is an example of how the class can be used:
 ```java

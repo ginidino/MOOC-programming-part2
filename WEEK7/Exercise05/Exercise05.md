@@ -9,7 +9,7 @@
 > The tests require you write lower case names.   
 
  output
- ```
-    mixu
-    mixu
+```
+mixu
+mixu
 ```

@@ -5,10 +5,10 @@
 > Create the class Thing whose objects can represent different kinds of things. The information to store are the thing's name and weight (kg).   
 
 > Add the following methods to your class:   
-        - A construsctor, which is given the thing's name and weight as parameter   
-        - public String getName(), which returns the thing's name   
-        - public int getWeight(), which returns the thing's weight   
-        - public String toString(), which returns a string in the form "name (weight kg)"   
+  - A construsctor, which is given the thing's name and weight as parameter   
+  - public String getName(), which returns the thing's name   
+  - public int getWeight(), which returns the thing's weight   
+  - public String toString(), which returns a string in the form "name (weight kg)"   
 
 > Below, you find an example of how to use the class:
 ```java

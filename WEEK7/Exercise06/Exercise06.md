@@ -1,8 +1,13 @@
 # Exercise 6 is about Promissory Note
     Create the class PromissoryNote with the following functionality:
-     - the constructor public PromissoryNote() creates a new promissory note
-     - the method public void setLoan(String toWhom, double value) which stores the information about loans to specific people.
-     - the method public double howMuchIsTheDebt(String whose) which returns the entity of the debt held by the parameter person
+        - the constructor public PromissoryNote() 
+            * creates a new promissory note
+            
+        - the method public void setLoan(String toWhom, double value) 
+            * stores the information about loans to specific people.
+            
+        - the method public double howMuchIsTheDebt(String whose) 
+            * returns the entity of the debt held by the parameter person
 
   The class can be used in the following way:
   

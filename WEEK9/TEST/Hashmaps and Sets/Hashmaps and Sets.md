@@ -63,7 +63,7 @@ Map<String, List<String>> phoneNumbers = new HashMap<String, List<String>>();
 ```
 The variable type is now a map where the key is a string and the value is a list containing strings. In fact, List is an interface that defines List functionality, for example ArrayList implements this interface. The concrete object is a HashMap.
    
-The values ​​you store in a HashMap are, for example, List<String>, a concrete object that implements the ArrayLists interface. Again you can add values to the HashMap like this:
+The values you store in a HashMap are, for example, List<String>, a concrete object that implements the ArrayLists interface. Again you can add values to the HashMap like this:
 ```java
 // first, we map an empty ArrayList to Pekka
 phoneNumbers.put( "Pekka", new  ArrayList<String>() );
@@ -164,3 +164,7 @@ Mikael : [3, 4]
 Pekka : [4]
 Matti : [1, 2]
 ```
+
+### One Object in Many Lists, a Map Construction or a Set
+
+object variable are reference-type, which means that the variable does not memorize the object itself, but the reference to the object. If you put each e.g. object into an ArrayList, the List doesn't remember the object itself, it just remembers a reference to the object. For example, there is no reason why objects cannot be stored in various other lists or HashMaps.

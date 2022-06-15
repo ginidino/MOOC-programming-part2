@@ -99,12 +99,12 @@ public class ExerciseAccounting {
 ```
 ```java
 ExerciseAccounting account = new ExerciseAccounting();
-  account.add(1);
-  account.add(1);
-  account.add(2);
-  account.add(3);
+account.add(1);
+account.add(1);
+account.add(2);
+account.add(3);
 
-  account.print();
+account.print();
 ```
 output
 ```
@@ -112,4 +112,55 @@ output
 2
 3
 ```
-  
+
+The solution above is useful if we don't need information about the exercises done by each different user. We can change the saving logic of the exercises in a way to have them save in relation to each user, using a HashMap. The users are recognized through a unique string (for instance, their student number), and each user has their own set of finished exercises.
+```java
+public class ExerciseAccounting {
+    private Map<String, Set<Integer>> doneExercises;
+
+    public ExerciseAccounting() {
+        this.doneExercises = new HashMap<String, Set<Integer>>();
+    }
+
+    public void add(String user, int exercise) {
+        // note that when we create a new user we have first to map an empty exercise set to it
+        if (!this.doneExercises.containsKey(user)) {
+            this.doneExercises.put(user, new HashSet<Integer>());
+        }
+
+        // first, we retrieve the set containing the user's exercises and then we add an exercise to it
+        Set<Integer> finished = this.doneExercises.get(user);
+        finished.add(exercise);
+
+        // the previous would have worked out without helping variable in the following way:
+        //  this.doneExercises.get(user).add(exercise);
+    }
+
+    public void print() {
+        for (String user: this.doneExercises.keySet()) {
+            System.out.println(user + ": " + this.doneExercises.get(user));
+        }
+    }
+}
+```
+```java
+ExerciseAccounting accounting = new ExerciseAccounting();
+accounting.add("Mikael", 3);
+accounting.add("Mikael", 4);
+accounting.add("Mikael", 3);
+accounting.add("Mikael", 3);
+
+accounting.add("Pekka", 4);
+accounting.add("Pekka", 4);
+
+accounting.add("Matti", 1);
+accounting.add("Matti", 2);
+
+accounting.print();
+```
+output
+```
+Mikael : [3, 4]
+Pekka : [4]
+Matti : [1, 2]
+```

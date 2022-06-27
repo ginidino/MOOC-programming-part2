@@ -75,3 +75,25 @@ volkswagen
 ```
 > As you can see, the Motor class can freely use the methods defined in the Component.
 
+## Private, Protected and Public
+If a method or variable has `private` field accessibility, it is not visible to its subclasses, and there is no direct way for subclasses to access them. In the previous example, the motor cannot directly access the properties defined in the superclass Component(id, producer, description). 
+
+A subclass naturally sees everything defined as `public` in its parent class.  
+
+You can use `protected` field accessibility when you want to define a superclass variable or method whose accessibility should be restricted to only subclasses.
+
+## Superclass
+Superclass constructors are defined with the `super` keyword. In fact, calling `super` is similar to calling `this` constructor. The call is supplied with the required type value for the superclass constructor parameter.
+
+Calling the constructor initializes the variables defined in the parent class. In fact, using a constructor call the same thing happens as a regular constructor call. A subclass constructor call must always have a call to the superclass constructor, unless the superclass has a parameterless constructor.
+
+> Attention! The `super` call must always be in the first line!
+
+## Calling Superclass Methods
+Methods defined in a superclass can always be called using the `super` prefix. This is the same way as calling a method defined in `this` class with this prefix. For example, you can use a method that overrides the superclass `toString` method in the following way:
+```java
+@Override
+public String toString() {
+    return super.toString() + "\n  And my personal message again!";
+}
+```

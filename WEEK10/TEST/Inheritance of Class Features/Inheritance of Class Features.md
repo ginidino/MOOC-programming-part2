@@ -375,3 +375,8 @@ public class Order {
 The Order class above is better. Instead of inheriting from the `Customer` class, the `mailingAddress` method uses a `Customer` reference to retrieve the mailing address. This makes the maintenance and specific functions of our programs easier.
 
 Now, when editing a customer, you only need to change the customer information. We don't have to do anything about the command.
+
+## Inheritance, Interfaces, Both, or None?
+Inheritance does not exclude the use of interfaces and vice versa. Interfaces are like a consensus on the implementation of a class and allow abstraction of concrete implementations. It is very easy to change a class that implements an interface.
+
+As with interfaces, when using inheritance, a subclass is committed to providing all of its superclass methods. Because of polymorphism, inheritance works like interfaces. You can assign a subclass instance to a method that takes a parent class as a parameter.

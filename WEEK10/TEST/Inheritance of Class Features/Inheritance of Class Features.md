@@ -380,3 +380,131 @@ Now, when editing a customer, you only need to change the customer information. 
 Inheritance does not exclude the use of interfaces and vice versa. Interfaces are like a consensus on the implementation of a class and allow abstraction of concrete implementations. It is very easy to change a class that implements an interface.
 
 As with interfaces, when using inheritance, a subclass is committed to providing all of its superclass methods. Because of polymorphism, inheritance works like interfaces. You can assign a subclass instance to a method that takes a parent class as a parameter.
+
+## An Abstract Class
+Abstract classes combine interfaces and inheritance. They do not produce instances, but you can create instances of their subclasses. 
+An abstract class can contain both normal and abstract methods: 
+1. the first containing the method body    
+2. the second having only the method definition. 
+ 
+The implementation of the abstract methods is left to the inheriting class. In general, we use abstract classes when the object they represent is not a clear, self-defined concept. In such cases, it is not possible to create instances of it.
+
+Both when we define abstract classes and abstract methods, we use the keyword `abstract`. An abstract class is defined by the statement `public abstract class ClassName`, whereas an abstract method is defined by `public abstract returnType methodName`.
+
+Let's take a look at the following abstract class `Operation`, which provides an operation and a framework for its execution.
+```java
+import java.util.Scanner;
+
+public abstract class Operation {
+	private String name;
+	
+	public Operation(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public abstract void execute(Scanner reader);
+}
+```
+The abstract class `Operation` acts as a framework for executing other operations. For example, you can implement addition by inheriting the `Operation` class as follows:
+```java
+import java.util.Scanner;
+
+public class Addition extends Operation{
+
+	public Addition() {
+		super("Addition");
+	}
+
+	@Override
+	public void execute(Scanner reader) {
+		System.out.print("Give the first number: ");
+		int num1 = Integer.parseInt(reader.nextLine());
+		System.out.print("Give the second number: ");
+        int num2 = Integer.parseInt(reader.nextLine());
+        
+        System.out.println("The sum is " + (num1 + num2));
+	}
+}
+```
+Because all classes which descend from `Operation` are also Operation-type, we can create a user interface based on `Operation`-type variables. The following class `UserInterface` contains a list of operations and a reader. The operations can be added dynamically in the user interface.
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class UserInterface {
+	private Scanner reader;
+	private List<Operation> operations;
+
+	public UserInterface(Scanner scanner) {
+		this.reader = new Scanner(System.in);
+		this.operations = new ArrayList<Operation>();
+	}
+
+	public void addOperation(Operation operation) {
+		this.operations.add(operation);
+	}
+
+	public void start() {
+		while(true) {
+			printOperations();
+			System.out.print("Choice: ");
+
+            String choice = this.reader.nextLine();
+            if (choice.equals("0")) {
+                break;
+            }
+
+            executeOperation(choice);
+            System.out.println();
+		}
+	}
+
+	private void printOperations() {
+		System.out.println("\t0: Quit");
+		for (int i = 0; i < this.operations.size(); i++) {
+			String operationName = this.operations.get(i).getName();
+			System.out.println("\t" + (i + 1) + ": " + operationName);
+		}
+	}
+	
+	private void executeOperation(String choice) {
+		int operation = Integer.parseInt(choice);
+		Operation chosen = this.operations.get(operation - 1);
+        chosen.execute(reader);
+	}
+}
+```
+Main method:
+```java
+import java.util.Scanner;
+
+public class WK10abstractTest {
+	public static void main(String[] args) {
+		UserInterface ui = new UserInterface(new Scanner(System.in));
+        ui.addOperation(new Addition());
+
+        ui.start();
+	}
+}
+```
+```
+Operations:
+        0: Quit
+        1: Addition
+Choice: 1
+Give the first number: 8
+Give the second number: 12
+The sum is 20
+
+Operations:
+        0: Quit
+        1: Addition
+Choice: 0
+```
+The difference between interface and abstract class - abstract class provides more structure to the program   
+ex) since it is possible to define the functionality of an abstract class, you can use it to define a default implementation. The above user interface used the definition of an abstract class to store the action name.

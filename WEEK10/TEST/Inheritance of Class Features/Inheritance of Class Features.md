@@ -508,3 +508,32 @@ Choice: 0
 ```
 The difference between interface and abstract class - abstract class provides more structure to the program   
 ex) since it is possible to define the functionality of an abstract class, you can use it to define a default implementation. The above user interface used the definition of an abstract class to store the action name.
+
+## Removing Objects from an ArrayList
+when you want to remove a part of the list objects while parsing an ArrayList:
+```java
+   // somewhere, with a definition like:
+   // ArrayList<Object> list = new ...
+
+   for ( Object object : list ) {
+      if ( hasToBeRemoved(object) ) {
+         list.remove(object);
+      }
+   }
+```
+The solution does not work and it throws a ConcurrentModificationException, because it is not possible to modify a list while parsing it with a foreach iterator. We will come back to the topic better on week 12. If you run into such a situation, you can handle it in the following way:
+```java
+   // somewhere, with a definition like:
+   // ArrayList<Object> list = new ...
+
+   ArrayList<Object> toBeRemoved = new ArrayList<Object>();
+
+   for ( Object object : list ) {
+      if ( hasToBeRemoved(object) ) {
+         toBeRemoved.add(object);
+      }
+   }
+
+   list.removeAll(toBeRemoved);
+```
+The objects which have to be deleted are gathered together while we parse the list, and the remove operation is executed only after parsing the list.

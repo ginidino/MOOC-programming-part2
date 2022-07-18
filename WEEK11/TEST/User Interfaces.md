@@ -107,3 +107,93 @@ private void createComponents(Container container) {
 }
 ```
 
+### Buttons
+add buttons to your user interface using the class `JButton`. Adding a JButton object to your user interface is similar to adding a JLabel object.
+```java
+private void createComponents(Container container) {
+    JButton button = new JButton("Click!");
+    container.add(button);
+}
+```
+Next, try to add both text and a button to our user interface.
+```
+private void createComponents(Container container) {
+    JButton button = new JButton("Click!");
+    container.add(button);
+    JLabel text = new JLabel("Text.");
+    container.add(text);
+}
+```
+We can only see the last component we added and the program is not working as expected.
+
+## Setting up UI Components
+Every UI component has its own place in the user interface. Component positions are defined by the UI *Layout Manager*. Previously, when you tried to add various components to a `Container` object, only one component was displayed. All `Container` objects have a default UI layout manager, BorderLayout.
+
+BorderLayout places UI components in five areas: the center of the user interface and four compass points. When using the Container's `add` method, you can provide another parameter to clarify where to place the component. The BorderLayout class accepts five class variables: `BorderLayout.NORTH`, `BorderLayout.EAST`, `BorderLayout.SOUTH`, `BorderLayout.WEST`, and `BorderLayout.CENTER`.
+
+The UI layout manager you want to use is assigned to the `Container` object in the parameter of the `setLauout` method. In addition to UI components, the `add` method can also assign where the component should be placed.
+
+```java
+private void createComponents(Container container) {
+    // the following line is not essential in this case, because BorderLayout is default in JFrame
+    container.setLayout(new BorderLayout());
+
+    container.add(new JButton("North"), BorderLayout.NORTH);
+    container.add(new JButton("East"), BorderLayout.EAST);
+    container.add(new JButton("South"), BorderLayout.SOUTH);
+    container.add(new JButton("West"), BorderLayout.WEST);
+    container.add(new JButton("Center"), BorderLayout.CENTER);
+
+    container.add(new JButton("Default (Center)"));
+}
+```
+
+### BoxLayout
+
+With BoxLayout, UI components are added to the user interface either horizontally or vertically. The BoxLayout constructor is given as parameters a Container object (where you added the UI component) and the layout direction of the UI component. The layout direction can be either `BoxLayout.X_AXIS` (components set horizontally) or `BoxLayout.Y_AXIS` (components set vertically). Unlike BorderLayout, BoxLayout doesn't have a limited number of places. This means you can add as many components as you want to the container.
+
+Arranging the user interface with `BoxLayout` works just like using `BorderLayout`. 
+1. create a layout manager and assign it to a `Container` object using the `setLayout` method. 
+2. You can then use the add method to `add` components to the Container object.   
+
+No additional parameters specifying the location are required.
+```
+private void createComponents(Container container) {
+    BoxLayout layout = new BoxLayout(container, BoxLayout.X_AXIS);
+    container.setLayout(layout);
+
+    container.add(new JLabel("First!"));
+    container.add(new JLabel("Second!"));
+    container.add(new JLabel("Third!"));
+}
+```
+No major changes are required to set the component vertically. Modify the orientation parameter of the `BoxLayout` constructor, `BoxLayout.Y_AXIS`.
+```java
+private void createComponents(Container container) {
+    BoxLayout layout = new BoxLayout(container, BoxLayout.Y_AXIS);
+    container.setLayout(layout);
+
+    container.add(new JLabel("First!"));
+    container.add(new JLabel("Second!"));
+    container.add(new JLabel("Third!"));
+}
+```
+You can use other layout managers to create user interfaces with the components set up appropriately. Below is an example of a user interface with components placed vertically. First there is the text and then there is the selection. You can use ButtonGroup and JRadioButton to create multiple exclusion ranges for a set of buttons. That is, "turning on one of those buttons turns off all other buttons in the group".
+```java
+private void createComponents(Container container) {
+    BoxLayout layout = new BoxLayout(container, BoxLayout.Y_AXIS);
+    container.setLayout(layout);
+
+    container.add(new JLabel("Choose meat or fish:"));
+
+    JRadioButton meat = new JRadioButton("Meat");
+    JRadioButton fish = new JRadioButton("Fish");
+
+    ButtonGroup buttonGroup = new ButtonGroup();
+    buttonGroup.add(meat);
+    buttonGroup.add(fish);
+
+    container.add(meat);
+    container.add(fish);
+}
+```

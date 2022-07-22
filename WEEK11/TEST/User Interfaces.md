@@ -197,3 +197,100 @@ private void createComponents(Container container) {
     container.add(fish);
 }
 ```
+
+## Managing Action Events
+Action event listeners *listen* the UI components they are assigned to. Always when performing an action on our UI components -- pressing a button, for instance -- the UI component calls a particular method of all the action event listeners assigned to it. Action event listeners are classes which implement a particular interface, and whose instances can be assigned to UI components. When an action event happens, the UI component goes through all its action event listeners, and calls the method defined by the interface.
+
+The most used action event listener interface with Swing user interfaces is __ActionListener__.    
+    * The interface `ActionListener` defines the method `void actionPerformed(ActionEvent e)`, which receives an __ActionEvent__ object as parameter.
+
+implement action event listener, which has to print a message only when we press the relative button. The class `MessageListener` implements `ActionListener` and prints the message `"Message received!"` when the method `actionPerformed` is called.
+
+```java
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MessageListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Message received!");
+		
+	}
+}
+```
+Next, create the a `JButton` for `UserInterface`, and add a instance of `MessageListener` to it. The class `JButton` can be added an action event listener by using the method defined in its parent class `AbstractButton: public void addActionListener(ActionListener actionListener)`.
+```java
+private void createComponents(Container container) {
+    JButton button = new JButton("Send!");
+    button.addActionListener(new MessageListener());
+
+    container.add(button);
+}
+```
+When press the button in `UserInterface` we can see the following message.
+```
+Message received!
+```
+
+### Handling Objects in the Action Event Listeners
+To modify the state of an object -> the action event listener constructor has to be assigned a reference to the obejct concerned, in order to have access to the object in the action event listener. 
+
+There are two `JTextArea`s -- where the user can input text, and a `JButton`. The user interface makes use of `GridLayout`, which makes the user interface look like a coordinate system. In the GridLayout constructor, we defined one line and three columns.
+```java
+private void createComponents(Container container) {
+    GridLayout layout = new GridLayout(1, 3);
+    container.setLayout(layout);
+
+    JTextArea textAreaLeft = new JTextArea("The Copier");
+    JTextArea textAreaRight = new JTextArea();
+    JButton copyButton = new JButton("Copy!");
+
+    container.add(textAreaLeft);
+    container.add(copyButton);
+    container.add(textAreaRight);
+}
+```
+implement user interface so that the text in the left area would be copied into the right area when we press the `JButton`. This is possible by implementing an action event listener. 
+
+Create the class `AreaCopier` which implements `ActionListener` and copies the text from one to the other `JTextArea`.
+```java
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JTextArea;
+
+public class AreaCopier implements ActionListener {
+
+    private JTextArea origin;
+    private JTextArea destination;
+
+    public AreaCopier(JTextArea origin, JTextArea destination) {
+        this.origin = origin;
+        this.destination = destination;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        this.destination.setText(this.origin.getText());
+    }
+}
+```
+Adding the new action event listener to the `JButton` object is possible using the method `addActionListener`.
+```java
+private void createComponents(Container container) {
+    GridLayout layout = new GridLayout(1, 3);
+    container.setLayout(layout);
+
+    JTextArea textAreaLeft = new JTextArea("The Copier");
+    JTextArea textAreaRight = new JTextArea();
+    JButton copyButton = new JButton("Copy!");
+
+    AreaCopier copier = new AreaCopier(textAreaLeft, textAreaRight);
+    copyButton.addActionListener(copier);
+
+    container.add(textAreaLeft);
+    container.add(copyButton);
+    container.add(textAreaRight);
+}
+```
+When press the button, the text in the left area is copied into the right one

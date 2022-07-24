@@ -294,3 +294,108 @@ private void createComponents(Container container) {
 }
 ```
 When press the button, the text in the left area is copied into the right one
+
+## Separating Application and UI Logic
+It's generally not a good idea to mix application logic (such as printing or calculation functions) and user interfaces in the same class. Programs are much harder to test and modify, and code is much harder to read. As the Single Responsibility Principle suggests, each class should have only one clear responsibility. Separating your application logic from your UI logic allows you to plan your interfaces properly and seamlessly. 
+
+`PersonRecord` class and want to implement a user interface that records people
+```java
+public interface PersonRecord {
+    void record(Person person);
+    Person get(String id);
+
+    void delete(Person person);
+    void delete(String id);
+    void deleteAll();
+
+    Collection<Person> getAll();
+}
+```
+
+### UI Implementation
+It is a good idea to add components when implementing a user interface. To record a person, need fields for name and ID number and a button to add the person. Use Java's `JTextField` to input text and I use `JButton` class to implement the button. It also creates a JLabel text description that tells the user what to do.
+
+Use `GridLayout` for UI layout   
+- The user interface has 3 rows and 2 columns.add action event listeners later. The UI method `createComponents` looks like this:
+```java
+private void createComponents(Container container) {
+    GridLayout layout = new GridLayout(3, 2);
+    container.setLayout(layout);
+
+    JLabel textName = new JLabel("Name: ");
+    JTextField nameField = new JTextField();
+    JLabel textID = new JLabel("ID: ");
+    JTextField idField = new JTextField();
+
+    JButton addButton = new JButton("Add!");
+    // event listener
+
+    container.add(textName);
+    container.add(nameField);
+    container.add(textID);
+    container.add(idField);
+    container.add(new JLabel(""));
+    container.add(addButton);
+}
+```
+Action event listeners need to know about the recording function (`PersonRecord` interface) and the fields it uses.
+
+Create a `PersonRecordListener` class that implements `ActionListener`. 
+- As constructor parameters, the class is assigned an object that implements the `PersonRecord` interface and two `JTextField` objects representing the name and ID fields. 
+- Create a new `Person` object in the `actionPerformed` method and record it using the record method of the `PersonRecord` object.
+```java
+public class PersonRecordListener implements ActionListener {
+
+    private PersonRecord personRecord;
+    private JTextField nameField;
+    private JTextField idField;
+
+    public PersonRecordListener(PersonRecord personRecord, JTextField nameField, JTextField idField) {
+        this.personRecord = personRecord;
+        this.nameField = nameField;
+        this.idField = idField;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        Person person = new Person(nameField.getText(), idField.getText());
+        this.personRecord.record(person);
+    }
+}
+```
+In order to retrieve a `PersonRecord` reference to `PersonRecordListener`, the user interface must have access to it. Add the `private PersonRecord personRecord` object variable set in the constructor to the user interface. Also modify the constructor of the `UserInterface` class assigned a class that implements the `PersonRecord` interface.
+
+```java
+public class UserInteface implements Runnable {
+
+    private JFrame frame;
+    private PersonRecord personRecord;
+
+    public UserInteface(PersonRecord personRecord) {
+        this.personRecord = personRecord;
+    }
+    // ...
+```
+Now create an action event listener, `PersonRecordListener`, provided both a `PersonRecord` reference and fields are provided.
+```java
+private void createComponents(Container container) {
+    GridLayout layout = new GridLayout(3, 2);
+    container.setLayout(layout);
+
+    JLabel nameText = new JLabel("Name: ");
+    JTextField nameField = new JTextField();
+    JLabel idText = new JLabel("ID: ");
+    JTextField idField = new JTextField();
+
+    JButton addButton = new JButton("Add!");
+    PersonRecordListener listener = new PersonRecordListener(personRecord, nameField, idField);
+    addButton.addActionListener(listener);
+
+    container.add(nameText);
+    container.add(nameField);
+    container.add(idText);
+    container.add(idField);
+    container.add(new JLabel(""));
+    container.add(addButton);
+}
+```

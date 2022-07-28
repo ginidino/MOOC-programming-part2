@@ -399,3 +399,56 @@ private void createComponents(Container container) {
     container.add(addButton);
 }
 ```
+
+## Nested Container Objects
+Sometimes we run into a situation where the `Container` object provided by `JFrame` doesn't fit our UI layout. We may want your user interface to look different, or you may want to group UI components based on their purpose. 
+- For example, it is not easy to build a user interface using only the `Container` object provided by the `JFrame` class.
+
+Able to place `Container` objects inside each other. The `JPanel` class allows nested container objects. You can add UI components to a JPanel instance the same way you add components to a `Container` instance of the `JFrame` class. You can also add an instance of `JPanel` to the `Container` object. This makes it possible to use many `Container` objects to develop a one user interface.
+
+Using `JPanel` makes it easier to create user interfaces. Create a user interface with three buttons -- Execute, Test, and Send -- plus a text field. The button is itself a group, and we assign the button to a `JPanel` object that is placed at the bottom of a `Container` object obtained from the `JFrame` class.
+```java
+private void createComponents(Container container) {
+    container.add(new JTextArea());
+    container.add(createPanel(), BorderLayout.SOUTH);
+}
+
+private JPanel createPanel() {
+    JPanel panel = new JPanel(new GridLayout(1, 3));
+    panel.add(new JButton("Execute"));
+    panel.add(new JButton("Test"));
+    panel.add(new JButton("Send"));
+    return panel;
+}
+```
+The `JPanel` class provides the layout style to use as a constructor parameter. The JPanel class also has a `setLayout` method if the constructor needs a reference to the `Container` object used in the layout style.
+
+If user interface has clear, separate, groups of components we can also *inherit* the `JPanel` class. 
+- For example, the panel above could also be implemented in the following way:
+```java
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class MenuPanel extends JPanel {
+
+    public MenuPanel() {
+        super(new GridLayout(1, 3));
+        createComponents();
+    }
+
+    private void createComponents() {
+        add(new JButton("Execute"));
+        add(new JButton("Test"));
+        add(new JButton("Send"));
+    }
+}
+```
+Now, able to create a `MenuPanel` instance in our user interface class.
+```java
+private void createComponents(Container container) {
+    container.add(new JTextArea());
+    container.add(new MenuPanel(), BorderLayout.SOUTH);
+}
+```
+> Note: If need an action event listener, must provide as parameters all the objects required by the `MenuPanel` class.

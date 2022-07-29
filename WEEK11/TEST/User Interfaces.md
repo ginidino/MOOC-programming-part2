@@ -452,3 +452,62 @@ private void createComponents(Container container) {
 }
 ```
 > Note: If need an action event listener, must provide as parameters all the objects required by the `MenuPanel` class.
+
+## Drawing
+`Container` functionality is *not the only reason* to use the JPanel class. This class is also used as a drawing board, inherit from the `JPanel` class and override the `protected void paintComponent(Graphics graphics)` method. The parameter of the method `paintComponent` receives from the user interface an object which implements the abstract class `Graphics`.
+
+Create a `DrawingBoard JPanel` class that inherits from `JPanel` and overrides the `paintComponent` method.
+```java
+public class DrawingBoard extends JPanel {
+
+    public DrawingBoard() {
+        super.setBackground(Color.WHITE);
+    }
+
+    @Override
+    protected void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+    }
+}
+```
+The above drawing board does not contain specific drawing functions. You can define the colour of the drawing board as white by calling the `setBackground` method of the superclass in the constructor. The `setBackGround` method takes an instance of the `Color` class as a parameter. The `Color` class contains the most common colours as class variables. For example, I use the `Color.WHITE` class variable to get white.
+
+The overridden `paintComponent` method calls the superclass's `paintComponent` method and does nothing else.   
+Add a drawing board to the `createComponents` method of the `UserInterface` class.
+```java
+private void createComponents(Container container) {
+    container.add(new DrawingBoard());
+}
+```
+Start user interface - background colour is white. The size of the user interface is set to 300x300 through the method `setPreferredSize`, and its title is `"Drawing Board"`.
+
+Drawing on the board is possible using the methods provides by the `Graphics` object.    
+Modify the method `paintComponent` of `DrawingBoard` and let's draw two rectangles using the method fillRect of the `Graphics` object.
+```java
+@Override
+protected void paintComponent(Graphics graphics) {
+    super.paintComponent(graphics);
+
+    graphics.fillRect(50, 80, 100, 50);
+    graphics.fillRect(200, 20, 50, 200);
+}
+```
+The method fillRect receives as parameter the x and y coordinates of a rectangle, + the rectangle width and height.    
+In fact, above, first draw a rectangle starting with pixels with coordinates (50, 80). This pixel is 100 pixels long and 50 pixels high. Then draw a rectangle 50 px long and 100 px high, starting at (200, 20).
+
+Java's `Graphics` object (and most other programming language libraries) expect the y-axis values to increase downwards. The coordinate system origin, i.e. the point (0,0), is in the upper left corner. The `Graphics` object always knows which UI component we are drawing on, and based on that we can define the position of the point to draw.
+
+The location of the UI origin can be made clear with the help of the following program: First, draw a green rectangle 10 px long and 200 px high, starting at the point (0,0). Then draw a black rectangle 200 pixels long and 10 pixels high, starting at the point (0,0). The drawing color is defined by the `setColor` method of the `Graphics` object.
+```java
+@Override
+protected void paintComponent(Graphics graphics) {
+    super.paintComponent(graphics);
+
+    graphics.setColor(Color.GREEN);
+    graphics.fillRect(0, 0, 10, 200);
+    graphics.setColor(Color.BLACK);
+    graphics.fillRect(0, 0, 200, 10);
+}
+```
+> This coordinate system reversibility depends on how the user interface size is modified. When modifying the size of the user interface, "drag the lower right corner" to reduce or increase the size. In this way the picture on the screen moves while changing the UI size. Since the grid starts from the top left corner, the drawing position is always the same, but the visible part changes.
+

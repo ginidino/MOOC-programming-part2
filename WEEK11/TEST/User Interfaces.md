@@ -660,3 +660,58 @@ Keystroke 38 pressed.
 ```
 Actually, the keyboard listener works, but the drawing board doesn't update.
 
+### Drawing Board Repainting
+User interface components usually have the functionality to repaint the component outer face, when needed. 
+- ex) when a button is pressed, an instance of the `JButton` class can paint as if the button was pressed and later paint normally again.   
+ 
+The drawing board we implemented does not have a pre-made update function. Instead, you should ask the drawing board to repaint when needed.
+
+Each subclass of `Component` has a `public void repaint()` method, which, after being called, repaints the component. We want that `DrawingBoard` object would get repainted while the avatar moves. The logic is that the avatar moves in the `KeyboardListener` class and repaints there too.
+
+To repaint, the keyboard listener needs a drawing board reference.
+- Modify the `KeyboardListener` class to receive as parameters an `Avatar` object and a `Component` object to repaint. Call the `Component` object's repaint method after each `keyPressed` action event.
+```java
+import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class KeyboardListener implements KeyListener {
+
+    private Component component;
+    private Avatar avatar;
+
+    public KeyboardListener(Avatar avatar, Component component) {
+        this.avatar = avatar;
+        this.component = component;
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            avatar.move(-5, 0);
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            avatar.move(5, 0);
+        }
+
+        component.repaint();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+    }
+}
+```
+- Modify the `UserInterface`'s `createComponents` method and provide an instance of `DrawingBoard` as a parameter to the keyboard listener.
+```java
+private void createComponents(Container container) {
+    DrawingBoard drawingBoard = new DrawingBoard(hahmo);
+    container.add(drawingBoard);
+
+    frame.addKeyListener(new KeyboardListener(avatar, drawingBoard));
+}
+```
+The avatar's movements are now visible in the user interface as well. Whenever the user presses the keyboard, the user interface keyboard listener handles the call. At the end of each call, the `repaint` method of our drawing board is called, and the drawing board gets repainted.

@@ -715,3 +715,6 @@ private void createComponents(Container container) {
 }
 ```
 The avatar's movements are now visible in the user interface as well. Whenever the user presses the keyboard, the user interface keyboard listener handles the call. At the end of each call, the `repaint` method of our drawing board is called, and the drawing board gets repainted.
+
+### Pre-made Application Frameworks 
+An application framework is a program that provides a set of standards and features for implementing a specific application. One way to create an application framework is to create a class that provides ready-made functionality so that the class can inherit from it and build specific applications. Application frameworks are generally broad and are conceived for a special purpose, for example programming games or developing web applications.

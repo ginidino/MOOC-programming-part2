@@ -46,3 +46,119 @@ if(string.matches("00|111|0000")) {
 ```
 The string not was matched by any of the alternatives
 ```
+
+## Round Brackets: a Delimited Part of the String
+With the help of round brackets it is possible to define what part of the regular expression is affected by the symbols. If want to allow alternatives `00000` and `00001`, able to define it using a vertical bar: `00000|00001`. Thanks to the round breaker, the choice can only be separated as part of the string. The expression `0000(0|1)` defines the strings `00000` and `00001`.
+
+Thus, the regular expression `look(|s|ed)` defines the base form of the verbs look (look), third person (looks), and past (looked).
+```java
+System.out.print("Write a form of the verb to look: ");
+String word = reader.nextLine();
+
+if (word.matches("look(|s|ed|ing|er)")) {
+    System.out.println("Well done!");
+} else {
+    System.out.println("Check again the form.");
+}
+```
+
+## Repetitions
+Repetitions in regular expressions
+- `*` stands for a repetition from 0 to n times
+```java
+String string = "trolololololo";
+
+if(string.matches("trolo(lo)*")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is right.
+```
+- `+` stands for a repetition from 1 to n times
+```java
+String string = "trolololololo";
+
+if(characterString.matches("tro(lo)+")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is right.
+```
+```java
+String characterString = "nänänänänänänänä Bätmään!";
+
+if(characterString.matches("(nä)+ Bätmään!")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is right.
+```
+- `?` stands for a repetition of 0 or 1 time
+```java
+String string = "You have accidentally the whole name";
+
+if(characterString.matches("You have accidentally (deleted )?the whole name")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is right.
+```
+- **`{a}`** stands for a repetition of a times
+```java
+String string = "1010";
+
+if(string.matches("(10){2}")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is right.
+```
+- **`{a,b}`** stands for a repetition from a to b times
+```java
+String string = "1";
+
+if(string.matches("1{2,4}")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is wrong.
+```
+- **`{a,}`** stands for a repetition from a to n times
+```java
+String string = "11111";
+
+if(string.matches("1{2,}")) {
+    System.out.println("The form is right.");
+} else {
+    System.out.println("The form is wrong.");
+}
+```
+```
+The form is right.
+```
+
+Able to use multiple repeating symbols within a single regular expression. For example, the regular expression `5{3}(1|0)*5{3}` defines a string that starts and ends with 5. There can be an infinite number of 1s and 0s in between.
+
+## Square Brackets: Character Groups
+With the help of square brackets we can quickly define groups of characters. Characters are written in square brackets, and a hyphen (-) can be used to define the spacing.
+- ex) `[145]` is equivalent to `(1|4|5)`, and `[2-36-9]` is equivalent to `(2|3|6|7|8|9)`.
+
+Accordingly, `[a-c]*` defines a regular expression with a string made only of characters `a`, `b` and `c`.

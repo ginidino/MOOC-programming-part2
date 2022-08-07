@@ -124,3 +124,96 @@ public class Main {
 HEARTS 10
 It's not clubs
 ```
+
+## Iterator
+The `Hand` class that represents the card the player is holding in their hand in a card game
+```java
+public class Hand {
+    private ArrayList<Card> cards;
+
+    public Hand() {
+        cards = new ArrayList<Hand>();
+    }
+
+    public void add(Card card){
+        cards.add(card);
+    }
+
+    public void print(){
+        for (Card card : cards) {
+            System.out.println( card );
+        }
+    }
+}
+```
+The `print` method prints each card in the hand using the "for each" statement. ArrayList and other "object containers" that implement the *Collection* interface indirectly implement the Iterable interface. Objects that implement Iterable can be parsed or better `"iterate"` using statements like *for each*.
+
+Object containers can also iterate over a specific collection of objects, using so-called *iterators*, objects that are thought to parse. 
+
+version of the iterator used to print the card.
+```java
+public void print() {
+    Iterator<Card> iterator = cards.iterator();
+
+    while ( iterator.hasNext() ){
+        System.out.println( iterator.next() );
+    }
+}
+```
+Iterators are taken from the ArrayList `cards`. An iterator is like a finger that always points to a specific object in the list, first, second, third, and so on, until the finger passes through each object.
+
+Iterators provide several methods. The `hasNext()` method asks if there are still objects to iterate over. If there is, you can use the `next()` method to retrieve the next object. The method returns the following object in the collection, and makes the iterator -- the "finger" -- point out the following object.
+
+The object reference returned from the Iterator's `next()` method can of course be stored in a variable. In fact, we can modify the print method in the following way:
+```java
+public void print(){
+    Iterator<Card> iterator = cards.iterator();
+
+    while ( iterator.hasNext() ){
+        Card nextCard = iterator.next();
+        System.out.println( nextCard );
+    }
+}
+```
+Able to create a way to delete cards that are less than a certain value.
+```java
+public class Hand {
+    // ...
+
+    public void deleteWorst(int value) {
+        for (Card card : cards) {
+            if ( card.getValue() < value ) {
+                cards.remove(card);
+            }
+        }
+    }
+}
+```
+Notice that running the method causes a strange error:
+```
+Exception in thread "main" java.util.ConcurrentModificationException
+        at java.util.AbstractList$Itr.checkForComodification(AbstractList.java:372)
+        at java.util.AbstractList$Itr.next(AbstractList.java:343)
+        at Hand.deleteWorst(Hand.java:26)
+        at Main.main(Main.java:20)
+Java Result: 1
+```
+- The reason : cannot delete objects from a list while you are parsing it: the for each statement "gets all worked up".
+
+If want to delete part of an object while parsing the list, you need to use an iterator. By calling the `remove` method of an iterator object, you can cleanly delete the value returned by the iterator with a previous next method call. The following method works fine.
+```java
+public class Hand {
+    // ...
+
+    public void deleteWorst(int value) {
+        Iterator<Card> iterator = cards.iterator();
+
+        while (iterator.hasNext()) {
+            if (iterator.next().getValue() < value) {
+                // delete the object returned by the iterator with its previous method call
+                iterator.remove();
+            }
+        }
+    }
+}
+```

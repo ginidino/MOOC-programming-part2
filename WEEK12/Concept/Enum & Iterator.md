@@ -124,6 +124,35 @@ public class Main {
 HEARTS 10
 It's not clubs
 ```
+## More about Enums
+Create an enum containing the object variables and implement the interface.
+
+### Enumerated Type Constructor Parameters
+Enum-type can contain object variables. Object variable values must be set in the constructor of a class defined as an enum. Enum-type classes cannot have `public` constructors.
+```java
+public enum Colour {
+    RED("red"), // the constructor parameters are defined as constant values when they are read
+    GREEN("green"),
+    BLUE("blue");
+
+    private String name; // object variable
+
+    private Colour(String name) { // constructor
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+}
+```
+The enumerated value `Color` can be used in the following ways:
+```java
+System.out.println(Colour.GREEN.getName());
+```
+```
+green
+```
 
 ## Iterator
 The `Hand` class that represents the card the player is holding in their hand in a card game

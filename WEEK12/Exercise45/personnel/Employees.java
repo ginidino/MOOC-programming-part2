@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// Exercise 45: Enum and Iterator
 // Exercise 45.3: Employees
 public class Employees {
 	private List<Person> list;
@@ -18,13 +19,18 @@ public class Employees {
 	}
 	
 	public void add(List<Person> persons) {
-		this.iterator = persons.iterator();
-		this.iterator.forEachRemaining(person -> this.list.add(person));
+		for (Person person : persons) {
+			this.list.add(person);
+		}
 	}
 	
 	public void print() {
 		this.iterator = this.list.iterator();
-		this.iterator.forEachRemaining(employee -> System.out.println(employee));
+		
+		while(this.iterator.hasNext()){
+            		Person nextPerson = this.iterator.next();
+            		System.out.println(nextPerson);
+        	}
 	}
 	
 	public void print(Education education) {

@@ -209,3 +209,119 @@ The films before sorting: [Gone with the Wind, The Bridges of Madison County, Er
 The films after sorting: [The Bridges of Madison County, Gone with the Wind, Eraserhead]
 ```
 
+## Exercise 46.7: Reference, Part 1
+Implement the class `Reference` in the package `reference`. The class `Reference` receives a `RatingRegister` object as constructor parameter. `Reference` uses the ratings in the rating register to elaborate a recommendation.
+
+Implement the method `public Film recommendFilm(Person person)`, which implements films to people. 
+> Hint: you need three things to find out the most suitable film. These are at least the class `FilmComparator` which you created earlier on; the method `public Map<Film, List<Rating>> filmRatings()` of the class `RatingRegister`; and a list of the existing films.
+
+Test your program with the following source code:
+```java
+    RatingRegister ratings = new RatingRegister();
+
+    Film goneWithTheWind = new Film("Gone with the Wind");
+    Film theBridgesOfMadisonCounty = new Film("The Bridges of Madison County");
+    Film eraserhead = new Film("Eraserhead");
+
+    Person matti = new Person("Matti");
+    Person pekka = new Person("Pekka");
+    Person mikke = new Person("Mikke");
+
+    ratings.addRating(matti, goneWithTheWind, Rating.BAD);
+    ratings.addRating(matti, theBridgesOfMadisonCounty, Rating.GOOD);
+    ratings.addRating(matti, eraserhead, Rating.FINE);
+
+    ratings.addRating(pekka, goneWithTheWind, Rating.FINE);
+    ratings.addRating(pekka, theBridgesOfMadisonCounty, Rating.BAD);
+    ratings.addRating(pekka, eraserhead, Rating.MEDIOCRE);
+
+    Reference ref = new Reference(ratings);
+    Film recommended = ref.recommendFilm(mikke);
+    System.out.println("The film recommended to Michael is: " + recommended);
+```
+```
+The film recommended to Michael is: The Bridges of Madison County
+```
+Now, our first part works fine exclusively for people who have never evaluated any movie. In such cases, we can't say anything about their film tastes, and the best choice is recommending them the film which has received the hightest average among the ratings.
+
+## Exercise 46.8: Reference, Part 2
+
+If people have added their own preferences to the reference service, we know something about their film tastes. Let's extend the functionality of our reference to create a personal recommendation if the person has evaluated films. The functionality implemented in the previous part has to be preserved: if a person hasn't evaluated any film, we recommend them a film according to film ratings.
+
+Personal recommendations are based on the similarity between the person ratings and other people's ratings. Let's reason about it with the help of the following table; in the first line on the top there are films, and the people who have rated are on the left. The brackets describe the ratings given.
+
+|Person \ Film|Gone with the Wind|The Bridges of Madison County|Eraserhead|Blues Brothers|
+|------|---|---|---|---|
+|Matti|BAD (-5)|GOOD (5)|FINE (3)|-|
+|Pekka|FINE (3)|-|BAD (-5)|MEDIOCRE (-3)|
+|Mikael|-|-|BAD (-5)|-|
+|Thomas|-|GOOD (5)|-|GOOD (5)|
+
+If we want to find the suitable film for Mikael, we can explore the similarity between Mikael's and other people's preferences. The similarity is calculated based on the ratings: as the sum of the products of the ratings for the films watched by both. For instance, Mikael and Thomas's similarity is 0, because they haven't watched the same films.
+
+If we calculate Mikael and Pekka's similarity, we find out that the sum of the products of the films they have in common is 25. Mikael and Pekka have both watched only one film, and they have both given it the grade bad (-5).
+```
+-5 * -5 = 25
+```
+Mikael and Matti's similarity is -15. Mikael and Matti have also watched only one same film. Mikael gave the grade bad (-5) to the film, whereas Matti gave it the grade fine (3).
+```
+-5 * 3 = -15
+```
+Based on that Mikael can be recommended films according to Pekka's taste: the recommendation is Gone with the Wind.
+
+On the other hand, if we want to find a suitable film for Matti, we have to find the similarity between Matti and everyone else. Matti and Pekka have watched two same films. Matti gave Gone with the Wind the grade bad (-5), Pekka the grade fine (3). Matti gave fine (3) to Eraserhead, and Pekka gave bad (-5). Matti and Pekka's similarity is -30.
+```
+-5 * 3 + 3 * -5 = -30
+```
+Matti and Mikael's similarity is -15, which we know according to out previous calculations. Similarities are symmetrical.
+
+Matti and Thomas have watched Gone with the Wind, and they both gave it the grade good (5). Matti and Thomas's similarity is 25, then.
+```
+5 * 5 = 25
+```
+Matti has to be recommended a film according to Thomas' taste: the recommendation will be the Blues Brothers.
+
+Implement the recommendation mechanism described above. The method recommendFilm should return null in two cases: if you cannot find any film to recommend; if you find a, say, person1 whose film taste is appropriate to recommend films to, say, person2, but person1 has rated bad, mediocre, or neutral, all the films person2 hasn't watched, yet. The approach described above has to work also if the person hasn't added any rating.
+
+You can test your program with the following source code:
+```java
+    RatingRegister ratings = new RatingRegister();
+
+    Film goneWithTheWind = new Film("Gone with the Wind");
+    Film theBridgesOfMadisonCounty = new Film("The Bridges of Madison County");
+    Film eraserhead = new Film("Eraserhead");
+    Film bluesBrothers = new Film("Blues Brothers");
+
+    Person matti = new Person("Matti");
+    Person pekka = new Person("Pekka");
+    Person mikke = new Person("Mikael");
+    Person thomas = new Person("Thomas");
+    Person arto = new Person("Arto");
+
+    ratings.addRating(matti, goneWithTheWind, Rating.BAD);
+    ratings.addRating(matti, theBridgesOfMadisonCounty, Rating.GOOD);
+    ratings.addRating(matti, eraserhead, Rating.FINE);
+
+    ratings.addRating(pekka, goneWithTheWind, Rating.FINE);
+    ratings.addRating(pekka, eraserhead, Rating.BAD);
+    ratings.addRating(pekka, bluesBrothers, Rating.MEDIOCRE);
+
+    ratings.addRating(mikke, eraserhead, Rating.BAD);
+
+    ratings.addRating(thomas, bluesBrothers, Rating.GOOD);
+    ratings.addRating(thomas, theBridgesOfMadisonCounty, Rating.GOOD);
+
+    Reference ref = new Reference(ratings);
+    System.out.println(thomas + " recommendation: " + ref.recommendFilm(thomas));
+    System.out.println(mikke + " recommendation: " + ref.recommendFilm(mikke));
+    System.out.println(matti + " recommendation: " + ref.recommendFilm(matti));
+    System.out.println(arto + " recommendation: " + ref.recommendFilm(arto));
+```
+```
+Thomas recommendation: Eraserhead
+Mikael recommendation: Gone with the Wind
+Matti recommendation: Blues Brothers
+Arto recommendation: The Bridges of Madison County
+```
+
+

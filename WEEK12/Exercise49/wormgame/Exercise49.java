@@ -1,10 +1,8 @@
 package wormgame;
 
 import javax.swing.SwingUtilities;
-
 import wormgame.domain.Worm;
 import wormgame.game.WormGame;
-import wormgame.gui.Updatable;
 import wormgame.gui.UserInterface;
 
 // Exercise 49: Worm Game
@@ -43,7 +41,7 @@ public class Exercise49 {
             }
         }
 
-        game.setUpdatable((Updatable) ui.getUpdatable());
+        game.setUpdatable(ui.getUpdatable());
         game.start();
 	}
 }

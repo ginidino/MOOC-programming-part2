@@ -88,3 +88,37 @@ Modify the functionality of the method `actionPerformed` so that it would implem
 - If the worm runs into itself, the variable `continue` is assigned the value `false`
 - Call `update`, which is a method of the variable `updatable` which implements the interface `Updatable`.
 - Call the `setDelay` method which is inherited from the `Timer` class. The game velocity should grow with respect to the worm length. The call `setDelay(1000 / worm.getLength())`; will work for it: in the call we expect that you have defined the object variable `worm`.
+
+## Exercise 49.5: Keyboard listener
+Implement the class `KeyboardListener` in `wormgame.gui`. The class has the constructor `public KeyboardListener(Worm worm)`, and it implements the interface `KeyListener`. Replace the method `keyPressed` so that the worm is assigned direction up when the up arrow key. Respectively, the worm is assigned the directions down, left, or right, when the user presses the down, left, or right arrow key.
+
+## Exercise 49.6: DrawingBoard
+Create the class `DrawingBoard` in `wormgame.gui`. The `DrawingBoard` inherits the class JPanel, and its constructor receives an instance of the class `WormGame` and the int variable `pieceLength` as parameters. The variable `pieceLength` tells the dimension of the pieces; length and height of the pieces are equal.
+
+Replace the `paintComponent` method which was inherited from the class `JPanel` so that the method draws the worm and the apple. Use the `Graphics` object's `fill3DRect` method to draw the worm. The worm colour has to be black `(Color.BLACK)`. The apple has to be drawn with the `Graphics` object's `fillOval` method, and its colour has to be red.
+
+Also implement the interface `Updatable` in `DrawingBoard`. The method `update` of Updatable has to call the `repaint` method of the class JPanel.
+
+## Exercise 49.7: User Interface
+Modify the class `UserInterface` to contain `DrawingBoard`. In the method `createComponents`, you have to create an instance of `DrawingBoard` and add it into the `Container` object. Create an instance of `KeyboardListener` at the end of `createComponents`, and add it to the Frame object.
+
+Also add the method `public Updatable getUpdatable()` to the class U`serInterface`, returning the drawing board which was created in c`reateComponents`.
+
+You can start the user interface from the `Main` class in the following way. Before the game starts, we wait that the user interface is created. When the user interface is created, it gets connected to the worm game and the game gets started.
+```java
+        WormGame game = new WormGame(20, 20);
+
+        UserInterface ui = new UserInterface(game, 20);
+        SwingUtilities.invokeLater(ui);
+
+        while (ui.getUpdatable() == null) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                System.out.println("The drawing board hasn't been created yet.");
+            }
+        }
+
+        game.setUpdatable(ui.getUpdatable());
+        game.start();
+```
